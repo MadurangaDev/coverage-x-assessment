@@ -1,0 +1,23 @@
+.task-card {
+  display: flex;
+  flex-direction: column;
+
+  .task-card-container {
+    display: flex;
+    gap: 16px;
+
+    .task-card-content {
+      display: flex;
+      flex-direction: column;
+
+      .task-card-button-container {
+        display: flex;
+        gap: 12px;
+      }
+    }
+  }
+  .task-card-divider {
+    width: 186px;
+    margin-inline: auto;
+  }
+}

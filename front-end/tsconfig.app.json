@@ -19,7 +19,7 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "erasableSyntaxOnly": true,
+    "erasableSyntaxOnly": false,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
 
@@ -27,7 +27,21 @@
     "baseUrl": "./",
     "paths": {
       "@components": ["src/components/index.ts"],
-      "@configs": ["src/configs/index.ts"]
+      "@configs": ["src/configs/index.ts"],
+      "@pages": ["src/pages/index.ts"],
+      "@providers": ["src/providers/index.ts"],
+      "@redux": ["src/redux/index.ts"],
+      "@redux-slices": ["src/redux/slices/index.ts"],
+      "@redux-actions": ["src/redux/actions/index.ts"],
+      "@enums": ["src/typings/enums/index.ts"],
+      "@interfaces": ["src/typings/interfaces/index.ts"],
+      "@responses": ["src/typings/interfaces/responses/index.ts"],
+      "@requests": ["src/typings/interfaces/requests/index.ts"],
+      "@constants": ["src/constants/index.ts"],
+      "@hooks": ["src/hooks/index.ts"],
+      "@styles/*": ["src/assets/styles/*"],
+      "@images/*": ["src/assets/images/*"],
+      "@utils": ["src/utils/index.ts"]
     }
   },
   "include": ["src"]

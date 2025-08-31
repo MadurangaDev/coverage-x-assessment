@@ -1,0 +1,15 @@
+.task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
+  .task-form-title {
+    text-align: center;
+  }
+
+  .input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+}

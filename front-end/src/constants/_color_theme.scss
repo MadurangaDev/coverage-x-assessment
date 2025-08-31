@@ -1,0 +1,4 @@
+:root {
+  // ---- NOTE ----  The reason to use css root variables instead of scss variables is to allow the MUI stylings to access these variables
+  --primary-color: #4a90e2;
+}

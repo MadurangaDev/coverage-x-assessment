@@ -4,6 +4,23 @@ import { ZodSchema } from "zod";
 import { createResponse } from "@utils";
 import { StatusCodes } from "@enums";
 
+export const validateRequestSyntax = (
+  err: any,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  if (err instanceof SyntaxError && "body" in err) {
+    return createResponse(
+      res,
+      null,
+      "Invalid request format",
+      StatusCodes.BAD_REQUEST
+    );
+  }
+  next();
+};
+
 export const validateRequestBody =
   (schema: ZodSchema) => (req: Request, res: Response, next: NextFunction) => {
     const result = schema.safeParse(req.body);

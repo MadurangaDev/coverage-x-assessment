@@ -1,0 +1,42 @@
+@import "./sideBarItem";
+
+.side-bar {
+  width: 72px;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(78, 199, 255, 1) 0%,
+    rgba(145, 98, 255, 1) 93%
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  .sidebar-top {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    margin-top: 15px;
+    width: 100%;
+
+    .sidebar-logo {
+      align-self: center;
+      width: 54px;
+      aspect-ratio: 1;
+    }
+    .sidebar-menu {
+      align-self: stretch;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+  }
+
+  .sidebar-version {
+    padding-inline: 12px;
+    padding-bottom: 15px;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+  }
+}

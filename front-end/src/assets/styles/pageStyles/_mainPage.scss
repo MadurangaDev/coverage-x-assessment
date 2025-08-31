@@ -1,0 +1,28 @@
+.main-page {
+  display: flex;
+  justify-content: space-between;
+  gap: 64px;
+  height: 100%;
+
+  .task-form-container {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .page-divider {
+    height: 75%;
+    align-self: center;
+  }
+
+  .task-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 20px 18px;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    background: white;
+  }
+}

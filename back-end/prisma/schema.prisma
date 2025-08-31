@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,4 +5,43 @@ generator client {
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+model task {
+  task_id             Int                      @id @default(autoincrement())
+  task_title          String                   @db.VarChar(50)
+  task_description    String                   @db.VarChar(500)
+  task_current_status task_task_current_status
+  task_priority       task_task_priority       @default(MEDIUM)
+  task_due_date       DateTime?                @db.Date
+  task_created_at     DateTime                 @default(now()) @db.Timestamp(0)
+  task_updated_at     DateTime                 @default(now()) @db.Timestamp(0)
+  isDeleted           Int                      @default(0) @db.TinyInt
+  task_history        task_history[]
+}
+
+model task_history {
+  record_id         Int                      @id @default(autoincrement())
+  task_id           Int
+  task_status       task_history_task_status
+  record_created_at DateTime                 @default(now()) @db.Timestamp(0)
+  task              task                     @relation(fields: [task_id], references: [task_id], onDelete: NoAction, onUpdate: NoAction, map: "task_history_record_relationship")
+
+  @@index([task_id], map: "task_history_record_relationship")
+}
+
+enum task_history_task_status {
+  PENDING
+  COMPLETED
+}
+
+enum task_task_current_status {
+  PENDING
+  COMPLETED
+}
+
+enum task_task_priority {
+  LOW
+  MEDIUM
+  HIGH
 }

@@ -1,0 +1,22 @@
+@import "./header";
+@import "./sideBar";
+
+.main-layout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+
+  .main-container {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .main-content {
+    flex-grow: 1;
+    padding: 54px 64px;
+    padding-top: 118px;
+    overflow-y: auto;
+  }
+}

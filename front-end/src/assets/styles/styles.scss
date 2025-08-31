@@ -1,0 +1,30 @@
+// theme
+@import "../../constants/color_theme";
+
+// Component Styles
+@import "./componentStyles/mainLayout";
+@import "./componentStyles/customButton";
+@import "./componentStyles/taskCard";
+@import "./componentStyles/taskForm";
+
+// Page Styles
+@import "./pageStyles/mainPage";
+
+// Global Styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Arial", sans-serif;
+  transition: all 0.3s ease;
+}
+
+.heading-h1 {
+  font-size: 24px !important;
+  font-weight: bold !important;
+}
+
+.body-text {
+  font-size: 12px !important;
+  font-weight: normal !important;
+}
