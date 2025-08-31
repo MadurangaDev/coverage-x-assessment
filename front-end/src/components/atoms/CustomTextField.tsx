@@ -45,47 +45,50 @@ export const CustomTextField = forwardRef<
   ) => {
     return (
       <Box className="custom-text-field-container">
-        <TextField
-          id={id}
-          type={type}
-          className={`custom-text-box ${className}`}
-          placeholder={placeholder}
-          label={label}
-          variant="outlined"
-          size="small"
-          multiline={multiline}
-          error={fieldState.invalid}
-          // 👇 Correctly merge adornments with Autocomplete props
-          InputProps={{
-            ...InputProps,
-            inputRef: ref,
-            startAdornment: StartIcon ? (
-              <InputAdornment position="start">
-                <StartIcon className="h-5 w-5 text-gray-400" />
-              </InputAdornment>
-            ) : (
-              InputProps?.startAdornment
-            ),
-            endAdornment: EndIcon ? (
-              <InputAdornment position="end">
-                <IconButton
-                  edge="end"
-                  onClick={slotProps?.endIcon?.onClick}
-                  className="group"
-                >
-                  <EndIcon
-                    className={`h-5 w-5 text-gray-400 group-hover:text-gray-600 ${
-                      slotProps?.endIcon?.className ?? ""
-                    }`}
-                  />
-                </IconButton>
-              </InputAdornment>
-            ) : (
-              InputProps?.endAdornment
-            ),
-          }}
-          {...otherProps}
-        />
+        <Box sx={{ display: "flex" }}>
+          <TextField
+            id={id}
+            type={type}
+            className={`custom-text-box ${className}`}
+            placeholder={placeholder}
+            label={label}
+            variant="outlined"
+            size="small"
+            sx={{ flexGrow: 1 }}
+            rows={multiline ? 4 : 1}
+            multiline={multiline}
+            error={fieldState.invalid}
+            InputProps={{
+              ...InputProps,
+              inputRef: ref,
+              startAdornment: StartIcon ? (
+                <InputAdornment position="start">
+                  <StartIcon className="h-5 w-5 text-gray-400" />
+                </InputAdornment>
+              ) : (
+                InputProps?.startAdornment
+              ),
+              endAdornment: EndIcon ? (
+                <InputAdornment position="end">
+                  <IconButton
+                    edge="end"
+                    onClick={slotProps?.endIcon?.onClick}
+                    className="group"
+                  >
+                    <EndIcon
+                      className={`h-5 w-5 text-gray-400 group-hover:text-gray-600 ${
+                        slotProps?.endIcon?.className ?? ""
+                      }`}
+                    />
+                  </IconButton>
+                </InputAdornment>
+              ) : (
+                InputProps?.endAdornment
+              ),
+            }}
+            {...otherProps}
+          />
+        </Box>
         {fieldState.invalid && (
           <FormHelperText error={fieldState.invalid}>
             {fieldState.error?.message}
