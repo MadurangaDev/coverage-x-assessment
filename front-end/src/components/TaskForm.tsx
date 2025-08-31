@@ -1,11 +1,24 @@
-import { type FC } from "react";
+import { useState, type FC } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { LocalizationProvider, MobileDatePicker } from "@mui/x-date-pickers";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import ExpandCircleDownOutlinedIcon from "@mui/icons-material/ExpandCircleDownOutlined";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 import { TaskPriority, TaskStatus } from "@enums";
 import { CustomButton, CustomTextField } from "@components";
-import { Box, Typography } from "@mui/material";
+import {
+  Box,
+  Divider,
+  IconButton,
+  MenuItem,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useAppDispatch, useSnackbarContext } from "@hooks";
 import { createTaskAction, filterTasksAction } from "@redux-actions";
 
@@ -35,12 +48,15 @@ const defaultValues: ITaskSchema = {
 };
 
 export const TaskForm: FC = () => {
+  const [advancedOptionsExpanded, setAdvancedOptionsExpanded] = useState(false);
+
   const dispatch = useAppDispatch();
   const snackbar = useSnackbarContext();
-  const { control, handleSubmit, reset } = useForm<ITaskSchema>({
-    resolver: yupResolver(taskSchema),
-    defaultValues,
-  });
+  const { control, handleSubmit, reset, resetField, watch } =
+    useForm<ITaskSchema>({
+      resolver: yupResolver(taskSchema),
+      defaultValues,
+    });
 
   const handleOnSubmit = async (formData: ITaskSchema) => {
     try {
@@ -81,7 +97,7 @@ export const TaskForm: FC = () => {
               {...field}
               type="text"
               placeholder="John Doe"
-              label="Task Title"
+              label="Task Title *"
               fieldState={fieldState}
             />
           )}
@@ -94,12 +110,96 @@ export const TaskForm: FC = () => {
               {...field}
               type="text"
               placeholder="Enter task description"
-              label="Task Description"
+              label="Task Description *"
               fieldState={fieldState}
               multiline
             />
           )}
         />
+        <Box className="advanced-options-container">
+          <Box
+            className="advanced-options-trigger"
+            onClick={() => setAdvancedOptionsExpanded(!advancedOptionsExpanded)}
+          >
+            <Typography className="body-text">Advanced Options</Typography>
+            <Divider orientation="horizontal" flexItem className="divider" />
+            <IconButton className="expand-icon-button" size="small">
+              <ExpandCircleDownOutlinedIcon
+                className={`expand-icon ${
+                  advancedOptionsExpanded ? "expanded" : ""
+                }`}
+              />
+            </IconButton>
+          </Box>
+          <Box
+            className={`advanced-options ${
+              !advancedOptionsExpanded ? "collapsed" : ""
+            }`}
+          >
+            <Controller
+              control={control}
+              name="taskPriority"
+              render={({ field, fieldState }) => (
+                <TextField
+                  {...field}
+                  select
+                  label="Task Priority *"
+                  fullWidth
+                  size="small"
+                  error={fieldState.invalid}
+                  helperText={fieldState.error?.message}
+                >
+                  {Object.values(TaskPriority).map((priority) => (
+                    <MenuItem key={priority} value={priority}>
+                      {priority}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              )}
+            />
+            <Box
+              sx={{ display: "flex", gap: 1, width: "100%" }}
+              className="due-date-picker"
+            >
+              <Controller
+                name="taskDueDate"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <MobileDatePicker
+                      {...field}
+                      label="Due Date"
+                      value={field.value ? dayjs(field.value) : null}
+                      onChange={(date) => {
+                        field.onChange(date);
+                      }}
+                      slotProps={{
+                        textField: {
+                          fullWidth: true,
+                          size: "small",
+                          error: fieldState.invalid,
+                          helperText: fieldState.error?.message,
+                        },
+                      }}
+                      sx={{
+                        flexGrow: 1,
+                        transition: "all 0.5s ease",
+                      }}
+                      className={`date-picker ${
+                        watch("taskDueDate") ? "with-clear-icon" : ""
+                      }`}
+                    />
+                  </LocalizationProvider>
+                )}
+              />
+              {watch("taskDueDate") && (
+                <IconButton onClick={() => resetField("taskDueDate")}>
+                  <CancelIcon />
+                </IconButton>
+              )}
+            </Box>
+          </Box>
+        </Box>
       </Box>
       <CustomButton type="submit">Add Task</CustomButton>
     </form>

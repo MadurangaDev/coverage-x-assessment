@@ -1,4 +1,4 @@
-import { type FC } from "react";
+import { useState, type FC } from "react";
 import { Box, Typography } from "@mui/material";
 import BallotIcon from "@mui/icons-material/Ballot";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -8,7 +8,7 @@ import { SideBarItem } from "@components";
 
 export const SideBar: FC = () => {
   return (
-    <Box className="side-bar">
+    <Box className={`side-bar`}>
       <Box className="sidebar-top">
         <img src={Logo} alt="Task Sparks Logo" className="sidebar-logo" />
         <Box className="sidebar-menu">
@@ -28,7 +28,7 @@ export const SideBar: FC = () => {
         </Box>
       </Box>
       <Box className="sidebar-version">
-        <Typography variant="body2">V.1.0.0</Typography>
+        <Typography className="body-text">V.1.0.0</Typography>
       </Box>
     </Box>
   );

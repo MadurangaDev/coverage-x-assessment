@@ -27,6 +27,7 @@ export const CustomButton: FC<ICustomButtonProps> = ({
     type={type}
     variant="contained"
     startIcon={icon}
+    size="small"
   >
     {isLoading ? <CircularProgress /> : children}
   </Button>

@@ -11,12 +11,18 @@
     flex-grow: 1;
     flex-direction: column;
     position: relative;
+    max-height: 100vh;
+    overflow-y: auto;
   }
 
   .main-content {
     flex-grow: 1;
     padding: 54px 64px;
     padding-top: 118px;
-    overflow-y: auto;
+
+    @media (max-width: 64rem) {
+      padding: 54px 32px;
+      padding-top: 118px;
+    }
   }
 }

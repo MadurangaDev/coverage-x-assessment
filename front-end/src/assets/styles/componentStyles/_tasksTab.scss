@@ -1,0 +1,26 @@
+.card-container {
+  max-height: calc(100vh - 330px);
+  overflow-y: auto;
+  padding-right: 8px;
+  &::-webkit-scrollbar {
+    width: 4px;
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(162, 162, 162, 0.4);
+    border-radius: 4px;
+    transition: all 0.3s;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(162, 162, 162, 0.7);
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  scrollbar-width: thin;
+  scrollbar-color: rgba(162, 162, 162, 0.4) transparent;
+
+  @media (max-width: 40rem) {
+    max-height: 80vh;
+  }
+}

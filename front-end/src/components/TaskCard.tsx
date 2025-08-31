@@ -46,7 +46,7 @@ export const TaskCard: FC<ITaskCardProps> = ({ task, className = "" }) => {
   return (
     <Box key={task.taskId} className={`task-card ${className}`}>
       <Box className="task-card-container">
-        <RadioButtonUncheckedIcon />
+        <RadioButtonUncheckedIcon className="task-card-icon" />
         <Box className="task-card-content">
           <Typography variant="h6" className="task-card-title">
             {task.taskTitle}
@@ -55,11 +55,16 @@ export const TaskCard: FC<ITaskCardProps> = ({ task, className = "" }) => {
             {task.taskDescription}
           </Typography>
           <Box className="task-card-button-container">
-            <CustomButton icon={<CheckIcon />} onClick={markAsDone}>
+            <CustomButton
+              icon={<CheckIcon />}
+              onClick={markAsDone}
+              className="done-button"
+              disabled={task.taskCurrentStatus === TaskStatus.COMPLETED}
+            >
               Done
             </CustomButton>
-            <IconButton>
-              <VisibilityIcon />
+            <IconButton className="task-card-view-button">
+              <VisibilityIcon className="view-icon" />
             </IconButton>
           </Box>
         </Box>
