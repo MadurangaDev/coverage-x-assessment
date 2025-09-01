@@ -5,3 +5,4 @@ export * from "./TaskCard";
 export * from "./Header";
 export * from "./SideBar";
 export * from "./TaskForm";
+export * from "./TaskViewModal";

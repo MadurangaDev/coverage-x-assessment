@@ -503,6 +503,23 @@
   }
 }
 
+.task-view-modal-content {
+  width: 95%;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+.task-view-modal-content .task-view-modal-buttons {
+  display: flex;
+  gap: 16px;
+  padding-bottom: 5px;
+}
+.task-view-modal-content .task-view-modal-buttons .done-button {
+  flex-grow: 1;
+  border-radius: 14px;
+}
+
 * {
   margin: 0;
   padding: 0;

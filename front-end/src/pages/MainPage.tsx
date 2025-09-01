@@ -1,4 +1,4 @@
-import { useEffect, type FC } from "react";
+import { useEffect, useState, type FC } from "react";
 import {
   Box,
   CircularProgress,
@@ -13,10 +13,16 @@ import { CustomTabPanel, TaskCard, TaskForm } from "@components";
 import { useAppDispatch, useAppSelector, useSnackbarContext } from "@hooks";
 import { filterTasksAction } from "@redux-actions";
 import { TaskStatus } from "@enums";
+import type { ITask } from "@interfaces";
 
 export const MainPage: FC = () => {
+  const [debouncedText, setDebouncedText] = useState("");
+  const [query, setQuery] = useState("");
+  const [filteredTasks, setFilteredTasks] = useState<ITask[]>([]);
+
   const dispatch = useAppDispatch();
   const snackbar = useSnackbarContext();
+  const { tasks } = useAppSelector((state) => state.task);
 
   const fetchTasks = async (filterType: "all" | "recent" | "completed") => {
     try {
@@ -41,6 +47,32 @@ export const MainPage: FC = () => {
   useEffect(() => {
     fetchTasks("recent");
   }, []);
+
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+      setDebouncedText(query);
+    }, 800);
+
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [query]);
+
+  useEffect(() => {
+    if (debouncedText.length > 0) {
+      const filtered = tasks.filter(
+        (task) =>
+          task.taskTitle.toLowerCase().includes(debouncedText.toLowerCase()) ||
+          task.taskDescription
+            .toLowerCase()
+            .includes(debouncedText.toLowerCase())
+      );
+      setFilteredTasks(filtered);
+    } else {
+      setFilteredTasks(tasks);
+    }
+  }, [debouncedText, tasks]);
+
   return (
     <Box className="main-page">
       <Box className="task-form-container">
@@ -76,6 +108,8 @@ export const MainPage: FC = () => {
               </InputAdornment>
             ),
           }}
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
         />
 
         <CustomTabPanel
@@ -83,17 +117,17 @@ export const MainPage: FC = () => {
           tabs={[
             {
               label: "All",
-              content: <TasksTab />,
+              content: <TasksTab filteredTasks={filteredTasks} />,
               onLoad: () => fetchTasks("all"),
             },
             {
               label: "Recent",
-              content: <TasksTab />,
+              content: <TasksTab filteredTasks={filteredTasks} />,
               onLoad: () => fetchTasks("recent"),
             },
             {
               label: "Completed",
-              content: <TasksTab />,
+              content: <TasksTab filteredTasks={filteredTasks} />,
               onLoad: () => fetchTasks("completed"),
             },
           ]}
@@ -103,8 +137,12 @@ export const MainPage: FC = () => {
   );
 };
 
-const TasksTab: FC = () => {
-  const { tasks, getTasksLoading } = useAppSelector((state) => state.task);
+interface TasksTabProps {
+  filteredTasks: ITask[];
+}
+
+const TasksTab: FC<TasksTabProps> = ({ filteredTasks }) => {
+  const { getTasksLoading } = useAppSelector((state) => state.task);
 
   return (
     <Box
@@ -116,8 +154,8 @@ const TasksTab: FC = () => {
       className="card-container"
     >
       {!getTasksLoading &&
-        tasks.map((task) => <TaskCard key={task.taskId} task={task} />)}
-      {!getTasksLoading && tasks.length === 0 && (
+        filteredTasks.map((task) => <TaskCard key={task.taskId} task={task} />)}
+      {!getTasksLoading && filteredTasks.length === 0 && (
         <Typography>No tasks found</Typography>
       )}
       {getTasksLoading && (

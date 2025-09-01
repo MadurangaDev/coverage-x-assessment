@@ -1,13 +1,14 @@
-import { type FC } from "react";
+import { useState, type FC } from "react";
 import { Box, Divider, IconButton, Typography } from "@mui/material";
-import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import CheckIcon from "@mui/icons-material/Check";
+import BeenhereOutlinedIcon from "@mui/icons-material/BeenhereOutlined";
+import BeenhereIcon from "@mui/icons-material/Beenhere";
 
-import { CustomButton } from "@components";
+import { CustomButton, TaskViewModal } from "@components";
 import type { ITask } from "@interfaces";
 import { TaskStatus } from "@enums";
-import { useAppDispatch, useAppSelector, useSnackbarContext } from "@hooks";
+import { useAppDispatch, useSnackbarContext } from "@hooks";
 import { filterTasksAction, updateTaskAction } from "@redux-actions";
 
 interface ITaskCardProps {
@@ -16,6 +17,8 @@ interface ITaskCardProps {
 }
 
 export const TaskCard: FC<ITaskCardProps> = ({ task, className = "" }) => {
+  const [openViewModal, setOpenViewModal] = useState(false);
+
   const dispatch = useAppDispatch();
   const snackbar = useSnackbarContext();
 
@@ -46,7 +49,11 @@ export const TaskCard: FC<ITaskCardProps> = ({ task, className = "" }) => {
   return (
     <Box key={task.taskId} className={`task-card ${className}`}>
       <Box className="task-card-container">
-        <RadioButtonUncheckedIcon className="task-card-icon" />
+        {task.taskCurrentStatus === TaskStatus.COMPLETED ? (
+          <BeenhereIcon className="task-card-icon" />
+        ) : (
+          <BeenhereOutlinedIcon className="task-card-icon" />
+        )}
         <Box className="task-card-content">
           <Typography variant="h6" className="task-card-title">
             {task.taskTitle}
@@ -63,13 +70,21 @@ export const TaskCard: FC<ITaskCardProps> = ({ task, className = "" }) => {
             >
               Done
             </CustomButton>
-            <IconButton className="task-card-view-button">
+            <IconButton
+              className="task-card-view-button"
+              onClick={() => setOpenViewModal(true)}
+            >
               <VisibilityIcon className="view-icon" />
             </IconButton>
           </Box>
         </Box>
       </Box>
       <Divider flexItem className="task-card-divider" />
+      <TaskViewModal
+        onClose={() => setOpenViewModal(false)}
+        open={openViewModal}
+        task={task}
+      />
     </Box>
   );
 };
