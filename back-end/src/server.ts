@@ -1,4 +1,4 @@
-require("module-alias/register");
+require("./registerAliases");
 
 import express, { Request, Response } from "express";
 import { config } from "dotenv";

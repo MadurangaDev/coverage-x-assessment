@@ -56,7 +56,7 @@ const taskSliceObj = createSlice({
         state.getTasksError = null;
       })
       .addCase(filterTasksAction.fulfilled, (state, action) => {
-        state.tasks = action.payload;
+        state.tasks = action.payload ?? [];
         state.getTasksLoading = false;
         state.getTasksError = null;
       })

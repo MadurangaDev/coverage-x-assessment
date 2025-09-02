@@ -57,16 +57,16 @@
     "typescript": "^5.8.3"
   },
   "_moduleAliases": {
-    "@": "src",
-    "@configs": "src/configs",
-    "@controllers": "src/controllers",
-    "@middlewares": "src/middlewares",
-    "@routes": "src/routes",
-    "@services": "src/services",
-    "@utils": "src/utils",
-    "@enums": "src/types/enums",
-    "@interfaces": "src/types/interfaces",
-    "@responses": "src/types/interfaces/responses",
-    "@requests": "src/types/interfaces/requests"
+    "@": "dist",
+    "@configs": "dist/configs",
+    "@controllers": "dist/controllers",
+    "@middlewares": "dist/middlewares",
+    "@routes": "dist/routes",
+    "@services": "dist/services",
+    "@utils": "dist/utils",
+    "@enums": "dist/types/enums",
+    "@interfaces": "dist/types/interfaces",
+    "@responses": "dist/types/interfaces/responses",
+    "@requests": "dist/types/interfaces/requests"
   }
 }

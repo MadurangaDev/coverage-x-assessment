@@ -1,11 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { type ITask } from "@interfaces";
-import {
-  type IBaseResponse,
-  type IBaseResponseArray,
-  type IPaginatedResponse,
-} from "@responses";
+import { type IBaseResponse, type IPaginatedResponse } from "@responses";
 import { type IFilterTasksQueries, type INewTaskRequest } from "@requests";
 import { axiosInstance } from "@utils";
 import { taskEndpoints } from "@constants";
@@ -15,15 +11,12 @@ export const filterTasksAction = createAsyncThunk(
   async (filters: IFilterTasksQueries, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.get<
-        IBaseResponseArray<IPaginatedResponse<ITask>>
+        IBaseResponse<IPaginatedResponse<ITask[]>>
       >(taskEndpoints.getAll, {
         params: filters,
       });
-      if (response.data.body) {
-        return response.data.body.data;
-      } else {
-        return rejectWithValue("No task list returned");
-      }
+      const tasks = response.data.body?.data ?? [];
+      return tasks;
     } catch (error: any) {
       return rejectWithValue(
         error.response?.data?.message ||
