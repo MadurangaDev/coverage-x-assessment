@@ -7,7 +7,7 @@ export interface IPaginationMetaData {
   has_prev_page: boolean;
 }
 
-export interface IPaginationResponse<T> {
+export interface IPaginatedResponse<T> {
   data: T | null;
   pagination: IPaginationMetaData;
 }

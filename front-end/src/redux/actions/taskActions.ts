@@ -4,7 +4,7 @@ import { type ITask } from "@interfaces";
 import {
   type IBaseResponse,
   type IBaseResponseArray,
-  type IPaginationResponse,
+  type IPaginatedResponse,
 } from "@responses";
 import { type IFilterTasksQueries, type INewTaskRequest } from "@requests";
 import { axiosInstance } from "@utils";
@@ -15,7 +15,7 @@ export const filterTasksAction = createAsyncThunk(
   async (filters: IFilterTasksQueries, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.get<
-        IBaseResponseArray<IPaginationResponse<ITask>>
+        IBaseResponseArray<IPaginatedResponse<ITask>>
       >(taskEndpoints.getAll, {
         params: filters,
       });

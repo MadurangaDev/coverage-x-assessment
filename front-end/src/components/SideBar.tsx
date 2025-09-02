@@ -1,5 +1,6 @@
-import { useState, type FC } from "react";
+import { type FC } from "react";
 import { Box, Typography } from "@mui/material";
+
 import BallotIcon from "@mui/icons-material/Ballot";
 import SettingsIcon from "@mui/icons-material/Settings";
 

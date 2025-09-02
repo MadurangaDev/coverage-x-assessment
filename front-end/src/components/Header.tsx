@@ -1,5 +1,6 @@
 import { useState, type FC } from "react";
 import { Typography, Box, IconButton } from "@mui/material";
+
 import PersonIcon from "@mui/icons-material/Person";
 import BallotIcon from "@mui/icons-material/Ballot";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -24,15 +25,12 @@ export const Header: FC = () => {
             The Task Manager
           </Typography>
         </Box>
-        <IconButton
-          className="header-profile-button"
-          onClick={() => setOpen(!open)}
-        >
+        <IconButton className="header-profile-button">
           <PersonIcon />
         </IconButton>
         <IconButton
           className="header-navbar-button"
-          onClick={() => setOpen(!open)}
+          onClick={() => setOpen(true)}
         >
           <MenuIcon />
         </IconButton>
