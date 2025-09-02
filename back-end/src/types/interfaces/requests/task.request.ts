@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { TaskPriority, TaskStatus } from "@enums";
 
 export const newTaskRequestSchema = z.object({
   taskTitle: z
@@ -16,10 +17,13 @@ export const newTaskRequestSchema = z.object({
     .min(1, "Task description is required")
     .max(500, "Task description is too long"),
   taskCurrentStatus: z
-    .enum(["PENDING", "COMPLETED"])
+    .nativeEnum(TaskStatus)
     .optional()
-    .default("PENDING"),
-  taskPriority: z.enum(["LOW", "MEDIUM", "HIGH"]).optional().default("MEDIUM"),
+    .default(TaskStatus.PENDING),
+  taskPriority: z
+    .nativeEnum(TaskPriority)
+    .optional()
+    .default(TaskPriority.MEDIUM),
   taskDueDate: z.string().date().optional().nullable(),
 });
 
@@ -28,8 +32,8 @@ export const taskIdParameterSchema = z.object({
 });
 
 export const getTasksFilterSchema = z.object({
-  task_priority: z.enum(["LOW", "MEDIUM", "HIGH"]).optional(),
-  task_status: z.enum(["PENDING", "COMPLETED"]).optional(),
+  task_priority: z.nativeEnum(TaskPriority).optional(),
+  task_status: z.nativeEnum(TaskStatus).optional(),
   task_due_date: z.string().date().optional(),
 
   page_size: z

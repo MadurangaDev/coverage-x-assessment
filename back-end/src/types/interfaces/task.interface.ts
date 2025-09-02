@@ -1,14 +1,16 @@
+import { TaskPriority, TaskStatus } from "@enums";
+
 export interface ITask {
   taskId: number;
   taskTitle: string;
   taskDescription: string;
-  taskCurrentStatus: "PENDING" | "COMPLETED";
-  taskPriority: "LOW" | "MEDIUM" | "HIGH";
+  taskCurrentStatus: TaskStatus;
+  taskPriority: TaskPriority;
   taskDueDate: Date | null;
   taskCreatedAt: Date;
   taskUpdatedAt: Date;
   taskHistory: {
-    taskStatus: "PENDING" | "COMPLETED";
+    taskStatus: TaskStatus;
     recordCreatedAt: Date;
   }[];
 }
