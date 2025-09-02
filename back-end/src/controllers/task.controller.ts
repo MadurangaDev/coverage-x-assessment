@@ -103,7 +103,7 @@ export const handleUpdateTask = async (req: Request, res: Response) => {
     return createResponse(
       res,
       updatedTask,
-      "Task Updates Successfully",
+      "Task Updated Successfully",
       StatusCodes.OK
     );
   } catch (err) {
