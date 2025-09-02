@@ -82,3 +82,25 @@ export const updateTaskAction = createAsyncThunk(
     }
   }
 );
+
+export const deleteTaskAction = createAsyncThunk(
+  "task/deleteTask",
+  async (taskId: number, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.delete<IBaseResponse<ITask>>(
+        taskEndpoints.delete(taskId)
+      );
+      if (response.data.body) {
+        return response.data.body;
+      } else {
+        return rejectWithValue("Task deletion failed");
+      }
+    } catch (error: any) {
+      return rejectWithValue(
+        error.response?.data?.message ||
+          error.message ||
+          "Error while deleting task"
+      );
+    }
+  }
+);

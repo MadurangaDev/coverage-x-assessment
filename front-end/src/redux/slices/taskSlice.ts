@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { ITask } from "@interfaces";
 import {
   createTaskAction,
+  deleteTaskAction,
   filterTasksAction,
   updateTaskAction,
 } from "@redux-actions";
@@ -19,6 +20,10 @@ interface ITaskSlice {
   updateTaskResponse: ITask | null;
   updateTaskLoading: boolean;
   updateTaskError: string | null;
+
+  deleteTaskResponse: ITask | null;
+  deleteTaskLoading: boolean;
+  deleteTaskError: string | null;
 }
 
 const initialState: ITaskSlice = {
@@ -33,6 +38,10 @@ const initialState: ITaskSlice = {
   updateTaskResponse: null,
   updateTaskLoading: false,
   updateTaskError: null,
+
+  deleteTaskResponse: null,
+  deleteTaskLoading: false,
+  deleteTaskError: null,
 };
 
 const taskSliceObj = createSlice({
@@ -92,6 +101,24 @@ const taskSliceObj = createSlice({
         state.updateTaskLoading = false;
         state.updateTaskError =
           action.error.message || "Error while updating task";
+      });
+
+    builder
+      .addCase(deleteTaskAction.pending, (state) => {
+        state.deleteTaskResponse = null;
+        state.deleteTaskLoading = true;
+        state.deleteTaskError = null;
+      })
+      .addCase(deleteTaskAction.fulfilled, (state, action) => {
+        state.deleteTaskResponse = action.payload;
+        state.deleteTaskLoading = false;
+        state.deleteTaskError = null;
+      })
+      .addCase(deleteTaskAction.rejected, (state, action) => {
+        state.deleteTaskResponse = null;
+        state.deleteTaskLoading = false;
+        state.deleteTaskError =
+          action.error.message || "Error while deleting task";
       });
   },
 });

@@ -19,7 +19,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useAppDispatch, useSnackbarContext } from "@hooks";
+import { useAppDispatch, useAppSelector, useSnackbarContext } from "@hooks";
 import { createTaskAction, filterTasksAction } from "@redux-actions";
 
 const taskSchema = Yup.object({
@@ -57,6 +57,9 @@ export const TaskForm: FC = () => {
       resolver: yupResolver(taskSchema),
       defaultValues,
     });
+  const { createTaskLoading, updateTaskLoading } = useAppSelector(
+    (state) => state.task
+  );
 
   const handleOnSubmit = async (formData: ITaskSchema) => {
     try {
@@ -201,7 +204,12 @@ export const TaskForm: FC = () => {
           </Box>
         </Box>
       </Box>
-      <CustomButton type="submit">Add Task</CustomButton>
+      <CustomButton
+        type="submit"
+        disabled={createTaskLoading || updateTaskLoading}
+      >
+        Add Task
+      </CustomButton>
     </form>
   );
 };

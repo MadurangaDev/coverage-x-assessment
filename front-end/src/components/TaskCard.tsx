@@ -9,7 +9,7 @@ import BeenhereIcon from "@mui/icons-material/Beenhere";
 import { CustomButton, TaskViewModal } from "@components";
 import type { ITask } from "@interfaces";
 import { TaskStatus } from "@enums";
-import { useAppDispatch, useSnackbarContext } from "@hooks";
+import { useAppDispatch, useAppSelector, useSnackbarContext } from "@hooks";
 import { filterTasksAction, updateTaskAction } from "@redux-actions";
 
 interface ITaskCardProps {
@@ -19,6 +19,8 @@ interface ITaskCardProps {
 
 export const TaskCard: FC<ITaskCardProps> = ({ task, className = "" }) => {
   const [openViewModal, setOpenViewModal] = useState(false);
+  const { deleteTaskLoading, getTasksLoading, updateTaskLoading } =
+    useAppSelector((state) => state.task);
 
   const dispatch = useAppDispatch();
   const snackbar = useSnackbarContext();
@@ -67,13 +69,21 @@ export const TaskCard: FC<ITaskCardProps> = ({ task, className = "" }) => {
               icon={<CheckIcon />}
               onClick={markAsDone}
               className="done-button"
-              disabled={task.taskCurrentStatus === TaskStatus.COMPLETED}
+              disabled={
+                task.taskCurrentStatus === TaskStatus.COMPLETED ||
+                updateTaskLoading ||
+                deleteTaskLoading ||
+                getTasksLoading
+              }
             >
               Done
             </CustomButton>
             <IconButton
               className="task-card-view-button"
               onClick={() => setOpenViewModal(true)}
+              disabled={
+                updateTaskLoading || deleteTaskLoading || getTasksLoading
+              }
             >
               <VisibilityIcon className="view-icon" />
             </IconButton>

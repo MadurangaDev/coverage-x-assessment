@@ -7,6 +7,12 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { CustomButton, CustomModal } from "@components";
 import { TaskStatus } from "@enums";
 import type { ITask } from "@interfaces";
+import { useAppDispatch, useAppSelector, useSnackbarContext } from "@hooks";
+import {
+  deleteTaskAction,
+  filterTasksAction,
+  updateTaskAction,
+} from "@redux-actions";
 
 interface ITaskViewModalProps {
   open: boolean;
@@ -19,6 +25,56 @@ export const TaskViewModal: FC<ITaskViewModalProps> = ({
   onClose,
   task,
 }) => {
+  const dispatch = useAppDispatch();
+  const snackbar = useSnackbarContext();
+  const { deleteTaskLoading, getTasksLoading, updateTaskLoading } =
+    useAppSelector((state) => state.task);
+
+  const markAsDone = async () => {
+    try {
+      const res = await dispatch(
+        updateTaskAction({
+          ...task,
+          taskCurrentStatus: TaskStatus.COMPLETED,
+        })
+      ).unwrap();
+      if (res) {
+        onClose();
+        snackbar.showSnackbar("Status updated successfully", "success");
+        await dispatch(
+          filterTasksAction({
+            page_size: 5,
+            task_status: TaskStatus.PENDING,
+          })
+        ).unwrap();
+      } else {
+        snackbar.showSnackbar("Status update failed", "error");
+      }
+    } catch (error: string | any) {
+      snackbar.showSnackbar(error || "Status update failed", "error");
+    }
+  };
+
+  const deleteTask = async () => {
+    try {
+      const res = await dispatch(deleteTaskAction(task.taskId)).unwrap();
+      if (res) {
+        onClose();
+        snackbar.showSnackbar("Task deleted successfully", "success");
+        await dispatch(
+          filterTasksAction({
+            page_size: 5,
+            task_status: TaskStatus.PENDING,
+          })
+        ).unwrap();
+      } else {
+        snackbar.showSnackbar("Task deletion failed", "error");
+      }
+    } catch (error: string | any) {
+      snackbar.showSnackbar(error || "Task deletion failed", "error");
+    }
+  };
+
   return (
     <CustomModal
       onClose={onClose}
@@ -77,15 +133,21 @@ export const TaskViewModal: FC<ITaskViewModalProps> = ({
         <Box className="task-view-modal-buttons">
           <CustomButton
             icon={<CheckIcon />}
-            // onClick={markAsDone}
+            onClick={markAsDone}
             className="done-button"
-            disabled={task.taskCurrentStatus === TaskStatus.COMPLETED}
+            disabled={
+              task.taskCurrentStatus === TaskStatus.COMPLETED ||
+              updateTaskLoading ||
+              deleteTaskLoading ||
+              getTasksLoading
+            }
           >
             Done
           </CustomButton>
           <IconButton
             className="task-card-delete-button"
-            // onClick={() => setOpenViewModal(true)}
+            onClick={deleteTask}
+            disabled={updateTaskLoading || deleteTaskLoading || getTasksLoading}
           >
             <DeleteIcon className="delete-icon" />
           </IconButton>
