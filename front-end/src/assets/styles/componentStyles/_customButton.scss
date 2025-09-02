@@ -1,0 +1,13 @@
+.custom-button {
+  text-transform: none !important;
+  background: var(--primary-color) !important;
+  border-radius: 10px !important;
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  height: 2rem;
+
+  &:disabled {
+    background: silver !important;
+  }
+}

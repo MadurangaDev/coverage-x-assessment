@@ -1,0 +1,16 @@
+{
+  "short_name": "Task Sparks",
+  "name": "Task Sparks",
+  "icons": [
+    {
+      "src": "/icons/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#125488",
+  "background_color": "#F5F5F5",
+  "description": "The Task Manager"
+}

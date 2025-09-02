@@ -1,4 +1,4 @@
-require("module-alias/register");
+require("./registerAliases");
 
 import express, { Request, Response } from "express";
 import { config } from "dotenv";
@@ -7,8 +7,9 @@ import swaggerUi from "swagger-ui-express";
 
 import { StatusCodes } from "@enums";
 import { createResponse } from "@utils";
-import { authRoutes } from "@routes";
+import { taskRoutes } from "@routes";
 import { swaggerSpec } from "@configs";
+import { checkDBConnection, validateRequestSyntax } from "@middlewares";
 
 config();
 const app = express();
@@ -16,10 +17,12 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
+app.use(validateRequestSyntax);
+app.use(checkDBConnection);
 
-// Routes
+// Controllers
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-app.use("/auth", authRoutes);
+app.use("/tasks", taskRoutes);
 
 // Default Routes
 app.all("/", (req: Request, res: Response): Response => {

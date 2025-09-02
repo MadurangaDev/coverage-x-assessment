@@ -1,0 +1,11 @@
+:root {
+  // ---- NOTE ----  The reason to use css root variables instead of scss variables is to allow the MUI stylings to access these variables
+  --primary-color: #1499ff;
+  --main-black: #18191a;
+  --main-white: #fdfeff;
+  --tab-shadow: rgba(0, 0, 0, 0.14);
+  --secondary-background: #f0f0f3;
+  --gradient-blue: rgba(78, 199, 255, 1);
+  --gradient-purple: rgba(145, 98, 255, 1);
+  --main-gray: rgba(162, 162, 162, 1);
+}

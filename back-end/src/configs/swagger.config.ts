@@ -4,11 +4,12 @@ const options: swaggerJSDoc.Options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Your API Name",
+      title: "To-Do App API",
       version: "1.0.0",
+      description: "API documentation for Task management App",
     },
   },
-  apis: ["./src/routes/*.ts"], // Adjust path as needed
+  apis: ["./src/docs/*.docs.ts"],
 };
 
 export const swaggerSpec = swaggerJSDoc(options);

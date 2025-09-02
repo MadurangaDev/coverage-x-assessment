@@ -1,0 +1,63 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: coveragex-db
+    environment:
+      MYSQL_DATABASE: to_do_coverage_x
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+    # If you hit auth issues on some hosts, uncomment:
+    # command: ["--default-authentication-plugin=mysql_native_password"]
+
+  back-end:
+    build:
+      context: ./back-end
+      dockerfile: Dockerfile
+    container_name: coveragex-backend
+    environment:
+      PORT: 3000
+      DATABASE_URL: mysql://root@db:3306/to_do_coverage_x
+      NODE_ENV: production
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://localhost:3000/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+  front-end:
+    build:
+      context: ./front-end
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_URL: http://localhost:3000/
+    container_name: coveragex-frontend
+    depends_on:
+      back-end:
+        condition: service_healthy
+    ports:
+      - "5173:80"
+    restart: unless-stopped
+
+volumes:
+  db_data:
