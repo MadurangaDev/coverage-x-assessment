@@ -5,6 +5,7 @@ import {
   handleGetTaskById,
   handleGetTasks,
   handleUpdateTask,
+  handleCreateTask,
 } from "@controllers";
 import {
   validateRequestBody,
@@ -16,7 +17,6 @@ import {
   newTaskRequestSchema,
   getTasksFilterSchema,
 } from "@requests";
-import { handleCreateTask } from "@controllers";
 
 const taskRoutes = Router();
 

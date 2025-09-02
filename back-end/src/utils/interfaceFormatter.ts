@@ -1,6 +1,7 @@
+import { Prisma } from "@prisma/client";
+
 import { TaskStatus, TaskPriority } from "@enums";
 import { ITask } from "@interfaces";
-import { PrismaClient, Prisma } from "@prisma/client";
 
 type ITaskFromDB = Prisma.taskGetPayload<{
   include: { task_history: true };

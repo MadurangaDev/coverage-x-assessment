@@ -3,9 +3,8 @@ import { PrismaClient } from "@prisma/client";
 import { StatusCodes } from "@enums";
 import { IGetTasksFilterDTO, INewTaskRequestDTO } from "@requests";
 import { ITask } from "@interfaces";
-import { formatTask } from "@utils";
+import { formatTask, createPaginationMetaData } from "@utils";
 import { IPaginationResponse } from "@responses";
-import { createPaginationMetaData } from "@/utils/pagination.util";
 
 const prisma = new PrismaClient();
 

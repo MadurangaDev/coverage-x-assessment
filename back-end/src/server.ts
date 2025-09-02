@@ -1,6 +1,6 @@
 require("module-alias/register");
 
-import express, { NextFunction, Request, Response } from "express";
+import express, { Request, Response } from "express";
 import { config } from "dotenv";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
