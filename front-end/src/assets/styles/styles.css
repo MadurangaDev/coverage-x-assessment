@@ -1,5 +1,12 @@
 :root {
-  --primary-color: #4a90e2;
+  --primary-color: #1499ff;
+  --main-black: #18191a;
+  --main-white: #fdfeff;
+  --tab-shadow: rgba(0, 0, 0, 0.14);
+  --secondary-background: #f0f0f3;
+  --gradient-blue: rgba(78, 199, 255, 1);
+  --gradient-purple: rgba(145, 98, 255, 1);
+  --main-gray: rgba(162, 162, 162, 1);
 }
 
 .header {
@@ -14,7 +21,7 @@
   top: 0;
   right: 0;
   width: 100%;
-  background: white;
+  background: var(--main-white);
   z-index: 999;
 }
 @media (max-width: 40rem) {
@@ -75,7 +82,7 @@
   color: rgba(255, 255, 255, 0.6);
 }
 .sidebar-item.active {
-  color: white !important;
+  color: var(--main-white) !important;
 }
 .sidebar-item.active .selected-indicator {
   left: 0 !important;
@@ -89,7 +96,7 @@
 .sidebar-item .selected-indicator {
   border-radius: 0px 2px 2px 0px;
   width: 3px;
-  background: white;
+  background: var(--main-white);
   position: absolute;
   top: 0;
   left: -5px;
@@ -115,7 +122,7 @@
 
 .side-bar {
   width: 72px;
-  background-image: linear-gradient(to bottom, rgb(78, 199, 255) 0%, rgb(145, 98, 255) 93%);
+  background-image: linear-gradient(to bottom, var(--gradient-blue) 0%, var(--gradient-purple) 93%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -159,9 +166,9 @@
 .side-bar .sidebar-top .sidebar-close-button {
   width: 34px;
   height: 34px;
-  border: 2px solid white;
+  border: 2px solid var(--main-white);
   align-self: center;
-  color: white;
+  color: var(--main-white);
 }
 .side-bar .sidebar-top .sidebar-menu {
   align-self: stretch;
@@ -172,7 +179,7 @@
 .side-bar .sidebar-version {
   padding-inline: 12px;
   padding-bottom: 15px;
-  color: white;
+  color: var(--main-white);
   font-size: 12px;
   font-weight: 600;
 }
@@ -204,7 +211,7 @@
 
 .custom-button {
   text-transform: none !important;
-  background: #1499ff !important;
+  background: var(--primary-color) !important;
   border-radius: 10px !important;
   display: flex;
   gap: 14px;
@@ -324,13 +331,13 @@
 }
 .task-form .input-container .advanced-options-container .advanced-options-trigger .body-text {
   font-size: 14px !important;
-  color: rgb(162, 162, 162);
+  color: var(--main-gray);
 }
 .task-form .input-container .advanced-options-container .advanced-options-trigger .divider {
   flex-grow: 1;
   align-self: center;
   height: 2px;
-  border-color: rgb(162, 162, 162);
+  border-color: var(--main-gray);
 }
 .task-form .input-container .advanced-options-container .advanced-options-trigger .expand-icon-button {
   border-radius: 50%;
@@ -339,7 +346,7 @@
 }
 .task-form .input-container .advanced-options-container .advanced-options-trigger .expand-icon-button .expand-icon {
   font-size: 20px;
-  color: rgb(162, 162, 162);
+  color: var(--main-gray);
   transition: all 0.3s ease;
 }
 .task-form .input-container .advanced-options-container .advanced-options-trigger .expand-icon-button .expand-icon.expanded {
@@ -384,14 +391,14 @@
 }
 .custom-tab-container .custom-tab-button-container {
   display: flex;
-  background: #f0f0f3;
+  background: var(--secondary-background);
   padding: 4px;
   padding-bottom: 5px;
   border-radius: 12px;
 }
 .custom-tab-container .custom-tab-button-container .custom-tab-button {
   flex: 1;
-  color: black;
+  color: var(--main-black);
   background: transparent;
   box-shadow: none;
   border-radius: 10px;
@@ -399,8 +406,8 @@
   font-weight: 400;
 }
 .custom-tab-container .custom-tab-button-container .custom-tab-button.selected {
-  background: white;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.14);
+  background: var(--main-white);
+  box-shadow: 0px 1px 2px var(--tab-shadow);
   font-weight: 600;
 }
 
@@ -495,7 +502,7 @@
   padding: 20px 18px;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
-  background: white;
+  background: var(--main-white);
   max-width: 400px;
   width: 400px;
 }

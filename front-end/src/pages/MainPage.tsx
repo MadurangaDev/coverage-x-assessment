@@ -93,7 +93,7 @@ export const MainPage: FC = () => {
           variant="outlined"
           placeholder="  Search Tasks"
           sx={{
-            background: "#F0F0F3",
+            background: "var(--secondary-background)",
             borderRadius: "10px",
             paddingLeft: "15px",
             fieldset: {

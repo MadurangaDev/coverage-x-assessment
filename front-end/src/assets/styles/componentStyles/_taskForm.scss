@@ -53,14 +53,14 @@
 
         .body-text {
           font-size: 14px !important;
-          color: rgba(162, 162, 162, 1);
+          color: var(--main-gray);
         }
 
         .divider {
           flex-grow: 1;
           align-self: center;
           height: 2px;
-          border-color: rgba(162, 162, 162, 1);
+          border-color: var(--main-gray);
         }
 
         .expand-icon-button {
@@ -70,7 +70,7 @@
 
           .expand-icon {
             font-size: 20px;
-            color: rgba(162, 162, 162, 1);
+            color: var(--main-gray);
             transition: all 0.3s ease;
 
             &.expanded {
