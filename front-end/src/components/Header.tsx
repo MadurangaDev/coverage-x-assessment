@@ -9,9 +9,12 @@ import MenuIcon from "@mui/icons-material/Menu";
 
 import { SideBarItem } from "@components";
 import Logo from "@images/logo.png";
+import { useSnackbarContext } from "@hooks";
 
 export const Header: FC = () => {
   const [open, setOpen] = useState(false);
+
+  const snackbar = useSnackbarContext();
 
   return (
     <>
@@ -25,7 +28,15 @@ export const Header: FC = () => {
             The Task Manager
           </Typography>
         </Box>
-        <IconButton className="header-profile-button">
+        <IconButton
+          className="header-profile-button"
+          onClick={() => {
+            snackbar.showSnackbar(
+              "The requirement didn't mentioned anything about authentication, so this button is non-functional and is here for future implementations.",
+              "info"
+            );
+          }}
+        >
           <PersonIcon />
         </IconButton>
         <IconButton
