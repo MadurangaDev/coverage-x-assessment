@@ -51,7 +51,7 @@ export const createTaskAction = createAsyncThunk(
       return rejectWithValue(
         error.response?.data?.message ||
           error.message ||
-          "Error while fetching tasks"
+          "Error while creating tasks"
       );
     }
   }

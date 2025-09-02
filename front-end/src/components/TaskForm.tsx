@@ -96,7 +96,7 @@ export const TaskForm: FC = () => {
             <CustomTextField
               {...field}
               type="text"
-              placeholder="John Doe"
+              placeholder="Sample Task"
               label="Task Title *"
               fieldState={fieldState}
             />
