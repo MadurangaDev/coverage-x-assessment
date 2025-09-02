@@ -1,31 +1,30 @@
 import { type FC } from "react";
 import { Box, Typography } from "@mui/material";
 
-import BallotIcon from "@mui/icons-material/Ballot";
-import SettingsIcon from "@mui/icons-material/Settings";
-
 import Logo from "@images/logo.png";
 import { SideBarItem } from "@components";
+import { menuItems, menuItemsEnum } from "@configs";
 
-export const SideBar: FC = () => {
+interface ISideBarProps {
+  activeItem: menuItemsEnum;
+}
+
+export const SideBar: FC<ISideBarProps> = ({ activeItem }) => {
   return (
     <Box className={`side-bar`}>
       <Box className="sidebar-top">
         <img src={Logo} alt="Task Sparks Logo" className="sidebar-logo" />
         <Box className="sidebar-menu">
-          <SideBarItem
-            label="Tasks"
-            icon={() => <BallotIcon />}
-            to="/"
-            active
-          />
-          <SideBarItem
-            label="Settings"
-            icon={() => <SettingsIcon />}
-            to="/settings"
-            active={false}
-            disabled
-          />
+          {menuItems.map((item) => (
+            <SideBarItem
+              key={item.label}
+              label={item.label}
+              icon={() => item.icon}
+              to={item.to}
+              active={activeItem === item.label}
+              disabled={item.disabled}
+            />
+          ))}
         </Box>
       </Box>
       <Box className="sidebar-version">

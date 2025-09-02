@@ -2,16 +2,19 @@ import { useState, type FC } from "react";
 import { Typography, Box, IconButton } from "@mui/material";
 
 import PersonIcon from "@mui/icons-material/Person";
-import BallotIcon from "@mui/icons-material/Ballot";
-import SettingsIcon from "@mui/icons-material/Settings";
 import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
 
 import { SideBarItem } from "@components";
 import Logo from "@images/logo.png";
 import { useSnackbarContext } from "@hooks";
+import { menuItems } from "@configs";
 
-export const Header: FC = () => {
+interface IHeaderProps {
+  activeItem: string;
+}
+
+export const Header: FC<IHeaderProps> = ({ activeItem }) => {
   const [open, setOpen] = useState(false);
 
   const snackbar = useSnackbarContext();
@@ -55,19 +58,16 @@ export const Header: FC = () => {
             <CloseIcon />
           </IconButton>
           <Box className="sidebar-menu">
-            <SideBarItem
-              label="Tasks"
-              icon={() => <BallotIcon />}
-              to="/"
-              active
-            />
-            <SideBarItem
-              label="Settings"
-              icon={() => <SettingsIcon />}
-              to="/settings"
-              active={false}
-              disabled
-            />
+            {menuItems.map((item) => (
+              <SideBarItem
+                key={item.label}
+                label={item.label}
+                icon={() => item.icon}
+                to={item.to}
+                active={activeItem === item.label}
+                disabled={item.disabled}
+              />
+            ))}
           </Box>
         </Box>
         <Box className="sidebar-version">
