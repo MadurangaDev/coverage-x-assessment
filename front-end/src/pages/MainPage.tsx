@@ -14,6 +14,7 @@ import { useAppDispatch, useAppSelector, useSnackbarContext } from "@hooks";
 import { filterTasksAction } from "@redux-actions";
 import { TaskStatus } from "@enums";
 import type { ITask } from "@interfaces";
+import { colorTheme } from "@constants";
 
 export const MainPage: FC = () => {
   const [debouncedText, setDebouncedText] = useState("");
@@ -93,7 +94,7 @@ export const MainPage: FC = () => {
           variant="outlined"
           placeholder="  Search Tasks"
           sx={{
-            background: "var(--secondary-background)",
+            background: colorTheme.secondaryBackground,
             borderRadius: "10px",
             paddingLeft: "15px",
             fieldset: {
