@@ -19,28 +19,21 @@
       width: 100%;
 
       .task-card-title {
+        overflow: hidden;
         text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
       }
 
       .task-card-description {
-        max-width: 270px;
         overflow: hidden;
-        white-space: nowrap;
         text-overflow: ellipsis;
         margin-bottom: 8px;
-
-        @media (max-width: 55.625rem) {
-          max-width: 200px;
-        }
-        @media (max-width: 48rem) {
-          max-width: 350px;
-        }
-        @media (max-width: 42rem) {
-          max-width: 300px;
-        }
-        @media (max-width: 40rem) {
-          max-width: 180px;
-        }
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        color: var(--main-gray);
       }
 
       .task-card-button-container {

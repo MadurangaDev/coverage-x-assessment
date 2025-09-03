@@ -242,34 +242,20 @@
   width: 100%;
 }
 .task-card .task-card-container .task-card-content .task-card-title {
+  overflow: hidden;
   text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 .task-card .task-card-container .task-card-content .task-card-description {
-  max-width: 270px;
   overflow: hidden;
-  white-space: nowrap;
   text-overflow: ellipsis;
   margin-bottom: 8px;
-}
-@media (max-width: 55.625rem) {
-  .task-card .task-card-container .task-card-content .task-card-description {
-    max-width: 200px;
-  }
-}
-@media (max-width: 48rem) {
-  .task-card .task-card-container .task-card-content .task-card-description {
-    max-width: 350px;
-  }
-}
-@media (max-width: 42rem) {
-  .task-card .task-card-container .task-card-content .task-card-description {
-    max-width: 300px;
-  }
-}
-@media (max-width: 40rem) {
-  .task-card .task-card-container .task-card-content .task-card-description {
-    max-width: 180px;
-  }
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  color: var(--main-gray);
 }
 .task-card .task-card-container .task-card-content .task-card-button-container {
   display: flex;
